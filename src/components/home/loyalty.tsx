@@ -37,7 +37,7 @@ export function LoyaltyPreview() {
         ))}
       </div>
       <div className="mt-10 text-center">
-        <Button href="/dashboard/rewards" size="lg" variant="emerald">Join the Rewards Program</Button>
+        <Button href="/dashboard/rewards" size="lg" variant="red">Join the Rewards Program</Button>
       </div>
     </section>
   );

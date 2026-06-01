@@ -29,7 +29,7 @@ export default function ProfilePage() {
             <div><Label>New password</Label><Input type="password" placeholder="••••••••" /></div>
             <div><Label>Confirm new password</Label><Input type="password" placeholder="••••••••" /></div>
           </div>
-          <Button variant="emerald" className="mt-5"><Lock className="h-4 w-4" /> Update Password</Button>
+          <Button variant="red" className="mt-5"><Lock className="h-4 w-4" /> Update Password</Button>
         </Panel>
 
         <Panel title="Saved Addresses" action={<Button size="sm" variant="outline"><Plus className="h-4 w-4" /> Add</Button>}>

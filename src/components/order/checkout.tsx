@@ -174,7 +174,7 @@ export function Checkout() {
             <Label>Coupon code</Label>
             <div className="flex gap-2">
               <Input value={couponInput} onChange={(e) => setCouponInput(e.target.value)} placeholder="WELCOME10" />
-              <Button variant="emerald" onClick={applyCoupon}><Tag className="h-4 w-4" /> Apply</Button>
+              <Button variant="red" onClick={applyCoupon}><Tag className="h-4 w-4" /> Apply</Button>
             </div>
             {coupon && coupon.code !== "INVALID" && <p className="mt-2 text-xs text-emerald">Applied {coupon.code} · −{formatCurrency(coupon.amount)}</p>}
             {coupon?.code === "INVALID" && <p className="mt-2 text-xs text-clay">Invalid coupon code</p>}

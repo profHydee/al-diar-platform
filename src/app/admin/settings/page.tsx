@@ -26,7 +26,7 @@ export default function AdminSettingsPage() {
           <div className="sm:col-span-2"><Label>Access Token</Label><Input type="password" defaultValue="demo-access-token" /></div>
           <div><Label>Environment</Label><select className="h-12 w-full rounded-xl border border-ink/15 bg-white px-3 text-sm outline-none focus:border-gold"><option>Sandbox</option><option>Production</option></select></div>
         </div>
-        <Button variant="emerald" className="mt-5">Update Clover Settings</Button>
+        <Button variant="red" className="mt-5">Update Clover Settings</Button>
       </Panel>
 
       <div className="grid gap-6 lg:grid-cols-2">
