@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------------------
+   Al-Diar brand design tokens (Tailwind v4 @theme)
+   Palette: espresso ink, deep emerald, Yemeni gold, cream + sand.
+---------------------------------------------------------------------------- */
+@theme {
+  --color-ink: #14110e;
+  --color-ink-soft: #211c17;
+  --color-espresso: #2a2118;
+
+  --color-emerald-deep: #0d3b2e;
+  --color-emerald: #135641;
+  --color-emerald-light: #1f7a5c;
+
+  --color-gold: #c8a658;
+  --color-gold-light: #e2c989;
+  --color-gold-dark: #a07f33;
+
+  --color-cream: #f7f1e4;
+  --color-sand: #e9dcc2;
+  --color-clay: #b8744a;
+
+  --color-background: #faf6ec;
+  --color-foreground: #14110e;
+
+  --font-display: var(--font-display), Georgia, serif;
+  --font-sans: var(--font-sans), system-ui, sans-serif;
+  --font-arabic: var(--font-arabic), serif;
+
+  --radius-xl2: 1.75rem;
+
+  --shadow-luxe: 0 24px 60px -24px rgba(20, 17, 14, 0.45);
+  --shadow-gold: 0 18px 50px -20px rgba(200, 166, 88, 0.55);
+
+  --animate-shimmer: shimmer 2.4s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* ----------------------------------------------------------------------------
+   Base
+---------------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+}
+
+* {
+  border-color: color-mix(in srgb, var(--color-ink) 10%, transparent);
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--color-cream); }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-emerald) 60%, transparent);
+  border-radius: 9999px;
+}
+
+/* ----------------------------------------------------------------------------
+   Utility classes
+---------------------------------------------------------------------------- */
+@utility container-luxe {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-inline: 1.25rem;
+}
+
+@utility glass {
+  background: color-mix(in srgb, white 12%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid color-mix(in srgb, white 22%, transparent);
+}
+
+@utility glass-dark {
+  background: color-mix(in srgb, var(--color-ink) 55%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid color-mix(in srgb, white 12%, transparent);
+}
+
+@utility text-gradient-gold {
+  background: linear-gradient(110deg, var(--color-gold-dark), var(--color-gold-light), var(--color-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility shimmer-gold {
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    color-mix(in srgb, var(--color-gold) 35%, transparent) 50%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+}
+
+/* Arabic geometric accent — repeating tile drawn with gradients */
+@utility pattern-arabesque {
+  background-image:
+    radial-gradient(circle at 0 0, transparent 8px, color-mix(in srgb, var(--color-gold) 18%, transparent) 9px, transparent 10px),
+    radial-gradient(circle at 16px 16px, transparent 8px, color-mix(in srgb, var(--color-gold) 18%, transparent) 9px, transparent 10px);
+  background-size: 32px 32px;
+}
