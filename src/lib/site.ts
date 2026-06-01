@@ -1,3 +1,9 @@
+// Resolve an absolute site URL. Handles missing OR empty env values, and
+// falls back to the Vercel deployment URL so `new URL()` never throws at build.
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+
 export const site = {
   name: "Al-Diar",
   legalName: "Al-Diar Restaurant USA",
@@ -11,7 +17,7 @@ export const site = {
   address2: "11015 S Harlem Ave,Worth , IL , 60482",
   location1: "Orleans St: ",
   location2: "Harlem Ave: ",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: siteUrl,
   social: {
     instagram: "https://instagram.com/aldiar",
     facebook: "https://facebook.com/aldiar",
