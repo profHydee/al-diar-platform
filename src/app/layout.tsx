@@ -3,6 +3,7 @@ import { Playfair_Display, Inter, Amiri } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { CartProvider } from "@/components/cart/cart-provider";
+import { RetellWidget } from "@/components/integrations/retell-widget";
 
 const display = Playfair_Display({
   variable: "--font-display",
@@ -48,6 +49,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     >
       <body className="flex min-h-full flex-col">
         <CartProvider>{children}</CartProvider>
+        <RetellWidget />
       </body>
     </html>
   );
