@@ -7,9 +7,14 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { promotions } from "@/lib/mock/data";
 
 function useCountdown(target: string) {
-  const [left, setLeft] = React.useState(() => Math.max(0, +new Date(target) - Date.now()));
+  // Start at 0 so the server-rendered HTML and the first client render match
+  // (computing Date.now() during render causes a hydration mismatch). The real
+  // value is filled in immediately after mount.
+  const [left, setLeft] = React.useState(0);
   React.useEffect(() => {
-    const t = setInterval(() => setLeft(Math.max(0, +new Date(target) - Date.now())), 1000);
+    const tick = () => setLeft(Math.max(0, +new Date(target) - Date.now()));
+    tick();
+    const t = setInterval(tick, 1000);
     return () => clearInterval(t);
   }, [target]);
   const d = Math.floor(left / 86400000);
