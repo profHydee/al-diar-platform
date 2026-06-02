@@ -1,41 +1,42 @@
 "use client";
 
-import Script from "next/script";
+import { useEffect } from "react";
 
 /**
- * Retell AI chat widget.
+ * Retell AI chat widget (v2).
  *
- * Both scripts use `strategy="beforeInteractive"`, so Next.js renders them
- * into the document <head> (before </head>) in the server HTML.
- *
- * NOTE: the init below only *instantiates* the Retell web client — it does not
- * itself render a visible chat bubble. Add Retell's actual widget-mount call
- * (or their <retell-widget> embed) to display a UI.
+ * The v2 widget is self-mounting: it loads as an ES module and reads its
+ * configuration from the `data-*` attributes on its own <script id="retell-widget">
+ * element (module scripts can't use document.currentScript, so it looks itself up
+ * by id). We therefore inject the exact <script> tag — with every attribute
+ * preserved — once on mount. The widget then renders its own floating button.
  */
+const WIDGET_ID = "retell-widget";
+
+const ATTRS: Record<string, string> = {
+  "data-public-key": "public_key_a3d6995f452d3dc50a314",
+  "data-agent-id": "agent_3c3c4593cd6acc16a6f1ed68ac",
+  "data-voice-public-key": "public_key_a3d6995f452d3dc50a314",
+  "data-voice-agent-id": "agent_f3ba111470f33714c280fef608",
+  "data-title": "Chat with Al-Diar Restaurant",
+  "data-bot-name": "Nour",
+  "data-fab-text": "Chat with us!",
+  "data-color": "#8B0000",
+  "data-popup-message": "مرحباً! أهلاً وسهلاً بكم في مطعم الديار! How can I help you today?",
+  "data-show-ai-popup": "true",
+  "data-show-ai-popup-time": "5",
+};
+
 export function RetellWidget() {
-  return (
-    <>
-      <Script
-        src="https://cdn.retellai.com/retell-client-sdk/index.js"
-        strategy="beforeInteractive"
-      />
-      <Script id="retell-init" strategy="beforeInteractive">
-        {`
-          (function () {
-            function init() {
-              if (typeof window === "undefined") return;
-              if (window.RetellWebClient) {
-                // Initialize chat widget with your Chat Agent ID
-                window.retellClient = new window.RetellWebClient();
-                // Agent ID: agent_3c3c4593cd6acc16a6f1ed68ac
-              } else {
-                setTimeout(init, 200);
-              }
-            }
-            init();
-          })();
-        `}
-      </Script>
-    </>
-  );
+  useEffect(() => {
+    if (document.getElementById(WIDGET_ID)) return; // guard against double-mount
+    const script = document.createElement("script");
+    script.id = WIDGET_ID;
+    script.src = "https://dashboard.retellai.com/retell-widget-v2.js";
+    script.type = "module";
+    for (const [key, value] of Object.entries(ATTRS)) script.setAttribute(key, value);
+    document.body.appendChild(script);
+  }, []);
+
+  return null;
 }
